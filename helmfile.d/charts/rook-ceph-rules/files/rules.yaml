@@ -13,6 +13,7 @@ groups:
         for: 5s
         labels:
           severity: warning
+          group: PersistentVolumeUsageNearFull
       - alert: PersistentVolumeUsageCritical
         annotations:
           description: PVC {{ $labels.persistentvolumeclaim }} utilization has crossed 85%. Free up some space or expand the PVC immediately.
@@ -24,6 +25,7 @@ groups:
         for: 5s
         labels:
           severity: critical
+          group: PersistentVolumeUsageCritical
   # Taken from https://github.com/rook/rook/blob/v1.10.5/deploy/charts/rook-ceph-cluster/prometheus/localrules.yaml
   #
   # Note: CephNodeInconsistentMTU has been removed as it would be constantly firing.
@@ -36,6 +38,7 @@ groups:
         for: 5m
         labels:
           severity: critical
+          group: CephHealthError
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.2.1
         annotations:
@@ -49,6 +52,7 @@ groups:
         for: 15m
         labels:
           severity: warning
+          group: CephHealthWarning
           type: ceph_default
         annotations:
           summary: Cluster is in the WARNING state
@@ -63,6 +67,7 @@ groups:
         for: 30s
         labels:
           severity: critical
+          group: CephMonDownQuorumAtRisk
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.3.1
         annotations:
@@ -81,6 +86,7 @@ groups:
         for: 30s
         labels:
           severity: warning
+          group: CephMonDown
           type: ceph_default
         annotations:
           documentation: https://docs.ceph.com/en/latest/rados/operations/health-checks#mon-down
@@ -98,6 +104,7 @@ groups:
         for: 1m
         labels:
           severity: critical
+          group: CephMonDiskspaceCritical
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.3.2
         annotations:
@@ -120,6 +127,7 @@ groups:
         for: 5m
         labels:
           severity: warning
+          group: CephMonDiskspaceLow
           type: ceph_default
         annotations:
           documentation: https://docs.ceph.com/en/latest/rados/operations/health-checks#mon-disk-low
@@ -141,6 +149,7 @@ groups:
         for: 1m
         labels:
           severity: warning
+          group: CephMonClockSkew
           type: ceph_default
         annotations:
           documentation: https://docs.ceph.com/en/latest/rados/operations/health-checks#mon-clock-skew
@@ -160,6 +169,7 @@ groups:
         expr: count(ceph_osd_up == 0) / count(ceph_osd_up) * 100 >= 10
         labels:
           severity: critical
+          group: CephOSDDownHigh
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.4.1
         annotations:
@@ -176,6 +186,7 @@ groups:
         for: 5m
         labels:
           severity: warning
+          group: CephOSDHostDown
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.4.8
         annotations:
@@ -190,6 +201,7 @@ groups:
         for: 5m
         labels:
           severity: warning
+          group: CephOSDDown
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.4.2
         annotations:
@@ -208,6 +220,7 @@ groups:
         for: 5m
         labels:
           severity: warning
+          group: CephOSDNearFull
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.4.3
         annotations:
@@ -223,6 +236,7 @@ groups:
         for: 1m
         labels:
           severity: critical
+          group: CephOSDFull
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.4.6
         annotations:
@@ -239,6 +253,7 @@ groups:
         for: 1m
         labels:
           severity: warning
+          group: CephOSDBackfillFull
           type: ceph_default
         annotations:
           documentation: https://docs.ceph.com/en/latest/rados/operations/health-checks#osd-backfillfull
@@ -254,6 +269,7 @@ groups:
         for: 30s
         labels:
           severity: warning
+          group: CephOSDTooManyRepairs
           type: ceph_default
         annotations:
           documentation: https://docs.ceph.com/en/latest/rados/operations/health-checks#osd-too-many-repairs
@@ -266,6 +282,7 @@ groups:
         for: 1m
         labels:
           severity: warning
+          group: CephOSDTimeoutsPublicNetwork
           type: ceph_default
         annotations:
           summary: Network issues delaying OSD heartbeats (public network)
@@ -277,6 +294,7 @@ groups:
         for: 1m
         labels:
           severity: warning
+          group: CephOSDTimeoutsClusterNetwork
           type: ceph_default
         annotations:
           summary: Network issues delaying OSD heartbeats (cluster network)
@@ -288,6 +306,7 @@ groups:
         for: 1m
         labels:
           severity: warning
+          group: CephOSDInternalDiskSizeMismatch
           type: ceph_default
         annotations:
           documentation: https://docs.ceph.com/en/latest/rados/operations/health-checks#bluestore-disk-size-mismatch
@@ -300,6 +319,7 @@ groups:
         for: 1m
         labels:
           severity: warning
+          group: CephDeviceFailurePredicted
           type: ceph_default
         annotations:
           documentation: https://docs.ceph.com/en/latest/rados/operations/health-checks#id2
@@ -316,6 +336,7 @@ groups:
         for: 1m
         labels:
           severity: critical
+          group: CephDeviceFailurePredictionTooHigh
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.4.7
         annotations:
@@ -331,6 +352,7 @@ groups:
         for: 1m
         labels:
           severity: warning
+          group: CephDeviceFailureRelocationIncomplete
           type: ceph_default
         annotations:
           documentation: https://docs.ceph.com/en/latest/rados/operations/health-checks#device-health-in-use
@@ -352,6 +374,7 @@ groups:
           ) * 60 > 1
         labels:
           severity: warning
+          group: CephOSDFlapping
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.4.4
         annotations:
@@ -369,6 +392,7 @@ groups:
         for: 30s
         labels:
           severity: warning
+          group: CephOSDReadErrors
           type: ceph_default
         annotations:
           documentation: https://docs.ceph.com/en/latest/rados/operations/health-checks#bluestore-spurious-read-errors
@@ -387,6 +411,7 @@ groups:
         for: 5m
         labels:
           severity: warning
+          group: CephPGImbalance
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.4.5
         annotations:
@@ -403,6 +428,7 @@ groups:
         for: 1m
         labels:
           severity: critical
+          group: CephFilesystemDamaged
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.5.1
         annotations:
@@ -417,6 +443,7 @@ groups:
         for: 1m
         labels:
           severity: critical
+          group: CephFilesystemOffline
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.5.3
         annotations:
@@ -430,6 +457,7 @@ groups:
         for: 1m
         labels:
           severity: critical
+          group: CephFilesystemDegraded
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.5.4
         annotations:
@@ -444,6 +472,7 @@ groups:
         for: 1m
         labels:
           severity: warning
+          group: CephFilesystemMDSRanksLow
           type: ceph_default
         annotations:
           documentation: https://docs.ceph.com/en/latest/cephfs/health-messages/#mds-up-less-than-max
@@ -457,6 +486,7 @@ groups:
         for: 1m
         labels:
           severity: warning
+          group: CephFilesystemInsufficientStandby
           type: ceph_default
         annotations:
           documentation: https://docs.ceph.com/en/latest/cephfs/health-messages/#mds-insufficient-standby
@@ -470,6 +500,7 @@ groups:
         for: 1m
         labels:
           severity: critical
+          group: CephFilesystemFailureNoStandby
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.5.5
         annotations:
@@ -484,6 +515,7 @@ groups:
         for: 1m
         labels:
           severity: critical
+          group: CephFilesystemReadOnly
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.5.2
         annotations:
@@ -503,6 +535,7 @@ groups:
         for: 5m
         labels:
           severity: critical
+          group: CephMgrModuleCrash
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.6.1
         annotations:
@@ -517,6 +550,7 @@ groups:
         for: 1m
         labels:
           severity: critical
+          group: CephMgrPrometheusModuleInactive
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.6.2
         annotations:
@@ -538,6 +572,7 @@ groups:
         for: 5m
         labels:
           severity: critical
+          group: CephPGsInactive
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.7.1
         annotations:
@@ -550,6 +585,7 @@ groups:
         for: 15m
         labels:
           severity: warning
+          group: CephPGsUnclean
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.7.2
         annotations:
@@ -562,6 +598,7 @@ groups:
         for: 5m
         labels:
           severity: critical
+          group: CephPGsDamaged
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.7.4
         annotations:
@@ -578,6 +615,7 @@ groups:
         for: 1m
         labels:
           severity: critical
+          group: CephPGRecoveryAtRisk
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.7.5
         annotations:
@@ -592,6 +630,7 @@ groups:
         for: 1m
         labels:
           severity: critical
+          group: CephPGUnavailableBlockingIO
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.7.3
         annotations:
@@ -605,6 +644,7 @@ groups:
         for: 1m
         labels:
           severity: critical
+          group: CephPGBackfillAtRisk
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.7.6
         annotations:
@@ -618,6 +658,7 @@ groups:
         for: 5m
         labels:
           severity: warning
+          group: CephPGNotScrubbed
           type: ceph_default
         annotations:
           documentation: https://docs.ceph.com/en/latest/rados/operations/health-checks#pg-not-scrubbed
@@ -635,6 +676,7 @@ groups:
         for: 1m
         labels:
           severity: warning
+          group: CephPGsHighPerOSD
           type: ceph_default
         annotations:
           documentation: https://docs.ceph.com/en/latest/rados/operations/health-checks/#too-many-pgs
@@ -652,6 +694,7 @@ groups:
         for: 5m
         labels:
           severity: warning
+          group: CephPGNotDeepScrubbed
           type: ceph_default
         annotations:
           documentation: https://docs.ceph.com/en/latest/rados/operations/health-checks#pg-not-deep-scrubbed
@@ -672,6 +715,7 @@ groups:
         for: 5m
         labels:
           severity: critical
+          group: CephNodeRootFilesystemFull
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.8.1
         annotations:
@@ -695,6 +739,7 @@ groups:
           ) >= 10
         labels:
           severity: warning
+          group: CephNodeNetworkPacketErrors
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.8.3
         annotations:
@@ -711,6 +756,7 @@ groups:
           on(instance) group_left(nodename) node_uname_info < 0
         labels:
           severity: warning
+          group: CephNodeDiskspaceWarning
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.8.4
         annotations:
@@ -728,6 +774,7 @@ groups:
               group_right ceph_pool_metadata) >= 95
         labels:
           severity: warning
+          group: CephPoolGrowthWarning
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.9.2
         annotations:
@@ -739,6 +786,7 @@ groups:
         expr: ceph_health_detail{name="POOL_BACKFILLFULL"} > 0
         labels:
           severity: warning
+          group: CephPoolBackfillFull
           type: ceph_default
         annotations:
           summary: Free space in a pool is too low for recovery/backfill
@@ -751,6 +799,7 @@ groups:
         for: 1m
         labels:
           severity: critical
+          group: CephPoolFull
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.9.1
         annotations:
@@ -771,6 +820,7 @@ groups:
         for: 5m
         labels:
           severity: warning
+          group: CephPoolNearFull
           type: ceph_default
         annotations:
           summary: One or more Ceph pools are nearly full
@@ -792,6 +842,7 @@ groups:
         for: 30s
         labels:
           severity: warning
+          group: CephSlowOps
           type: ceph_default
         annotations:
           documentation: https://docs.ceph.com/en/latest/rados/operations/health-checks#slow-ops
@@ -807,6 +858,7 @@ groups:
         for: 30s
         labels:
           severity: critical
+          group: CephObjectMissing
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.10.1
         annotations:
@@ -824,6 +876,7 @@ groups:
         for: 1m
         labels:
           severity: critical
+          group: CephDaemonCrash
           type: ceph_default
           oid: 1.3.6.1.4.1.50495.1.2.1.1.2
         annotations:
