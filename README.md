@@ -177,3 +177,8 @@ This is required if rook-ceph will be reinstalled on the same cluster.
 ansible all -i "${CK8S_CONFIG_PATH}/sc-config/inventory.ini" --become -m shell -a 'rm -rf /var/lib/rook'
 ansible all -i "${CK8S_CONFIG_PATH}/wc-config/inventory.ini" --become -m shell -a 'rm -rf /var/lib/rook'
 ```
+
+## 📜 Licensing Information
+
+All source files in this repository are licensed under the Apache License, Version 2.0 unless otherwise stated.
+See the [LICENSE](./LICENSE) file for full details.
