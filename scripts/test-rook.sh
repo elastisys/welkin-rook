@@ -122,7 +122,7 @@ function setExpectedResources {
     "rook-ceph-operator"
     "rook-ceph-toolbox"
   )
-  DEMONSETS=()
+  DAEMONSETS=()
   version=$(get_merged_key ${cluster} ".rook.major")
   # gnu sort checks if the input is sorted, which it is if the user specified >= 1.18
   if [[ $version != "null" ]] && printf '%s\n%s' 1.18 $version | sort --version-sort --check=silent
