@@ -154,6 +154,8 @@ policies:
             - tcp: 6800
         - peers:
             - podSelectorLabels:
+                app: rook-ceph.rbd.csi.ceph.com-ctrlplugin
+            - podSelectorLabels:
                 app: csi-rbdplugin-provisioner
             - podSelectorLabels:
                 app: rook-ceph-operator
@@ -166,6 +168,8 @@ policies:
             - podSelectorLabels:
                 app: rook-ceph-crashcollector
             {{- if .Values | get "csi.enableCephfsDriver" false }}
+            - podSelectorLabels:
+                app: rook-ceph.cephfs.csi.ceph.com-ctrlplugin
             - podSelectorLabels:
                 app: csi-cephfsplugin-provisioner
             - podSelectorLabels:
@@ -193,6 +197,8 @@ policies:
             - tcp: 6789
         - peers:
             - podSelectorLabels:
+                app: rook-ceph.rbd.csi.ceph.com-ctrlplugin
+            - podSelectorLabels:
                 app: csi-rbdplugin-provisioner
             - podSelectorLabels:
                 app: rook-ceph-operator
@@ -209,6 +215,8 @@ policies:
             - podSelectorLabels:
                 app: rook-ceph-exporter
             {{- if .Values | get "csi.enableCephfsDriver" false }}
+            - podSelectorLabels:
+                app: rook-ceph.cephfs.csi.ceph.com-ctrlplugin
             - podSelectorLabels:
                 app: csi-cephfsplugin-provisioner
             - podSelectorLabels:
@@ -240,6 +248,8 @@ policies:
               end: 7300
         - peers:
             - podSelectorLabels:
+                app: rook-ceph.rbd.csi.ceph.com-ctrlplugin
+            - podSelectorLabels:
                 app: csi-rbdplugin-provisioner
             - podSelectorLabels:
                 app: rook-ceph-operator
@@ -250,6 +260,8 @@ policies:
             - podSelectorLabels:
                 app: rook-ceph-osd
             {{- if .Values | get "csi.enableCephfsDriver" false }}
+            - podSelectorLabels:
+                app: rook-ceph.cephfs.csi.ceph.com-ctrlplugin
             - podSelectorLabels:
                 app: csi-cephfsplugin-provisioner
             - podSelectorLabels:

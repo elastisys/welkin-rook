@@ -63,7 +63,8 @@ apiserverAddresses="$(
     .metadata.annotations | [
         ."projectcalico.org/IPv4VXLANTunnelAddr", ."projectcalico.org/IPv6VXLANTunnelAddr",
         ."projectcalico.org/IPv4IPIPTunnelAddr",
-        ."projectcalico.org/IPv4WireguardInterfaceAddr", ."projectcalico.org/IPv6WireguardInterfaceAddr"
+        ."projectcalico.org/IPv4WireguardInterfaceAddr", ."projectcalico.org/IPv6WireguardInterfaceAddr",
+        ."network.cilium.io/ipv4-cilium-host", ."network.cilium.io/ipv6-cilium-host"
     ]) | .[]] | sort | .[]'
 )"
 
@@ -76,7 +77,8 @@ nodeAddresses="$(
       [
         ."projectcalico.org/IPv4VXLANTunnelAddr", ."projectcalico.org/IPv6VXLANTunnelAddr",
         ."projectcalico.org/IPv4IPIPTunnelAddr",
-        ."projectcalico.org/IPv4WireguardInterfaceAddr", ."projectcalico.org/IPv6WireguardInterfaceAddr"
+        ."projectcalico.org/IPv4WireguardInterfaceAddr", ."projectcalico.org/IPv6WireguardInterfaceAddr",
+        ."network.cilium.io/ipv4-cilium-host", ."network.cilium.io/ipv6-cilium-host"
       ]) | .[]] | sort | .[]'
 )"
 
