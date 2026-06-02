@@ -1,5 +1,7 @@
 # Values shared with all clusters
 commons:
+  rook:
+    major: 1.18
   podSecurityPolicies:
     # Requires Gatekeeper PodSecurityPolicies templates from apps!
     # Enable after apps is installed!
@@ -28,7 +30,7 @@ commons:
     cephVersion:
       # allowUnsupported: false
       # imagePullPolicy: IfNotPresent
-      image: quay.io/ceph/ceph:v17.2.6
+      image: quay.io/ceph/ceph:v19.2.3
 
     cephBlockPool:
       name: rook-ceph-blockpool
@@ -47,10 +49,9 @@ commons:
       name: rook-ceph-block
       # default: true
 
-      ## If the storage nodes use kernel 5.4 or newer, set imageFeatures to
-      ## "layering,fast-diff,object-map,deep-flatten,exclusive-lock"
-      # parameters:
-      #  imageFeatures: layering
+      ## If the storage nodes use kernel 5.2 or older, set imageFeatures to "layering"
+      parameters:
+        imageFeatures: "layering,fast-diff,object-map,deep-flatten,exclusive-lock"
 
       # allowVolumeExpansion: true
       # volumeBindingMode: Immediate
