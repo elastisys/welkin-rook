@@ -7,7 +7,7 @@ addressInSubnet() {
 
 # fn <key> <addresses>
 updatePeers() {
-  peers="$(yq ".commons * .clusters.${cluster} | .networkPolicies.${1} | .[].cidr" "${CK8S_CONFIG_PATH}/rook/values.yaml")"
+  peers="$(yq ".commons * .clusters.${cluster} | .networkPolicies.${1} | .[].cidr | select(. != null)" "${CK8S_CONFIG_PATH}/rook/values.yaml")"
 
   local -a update
 
